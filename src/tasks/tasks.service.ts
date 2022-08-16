@@ -11,8 +11,8 @@ import { Task } from './models/tasks.model';
 export class TasksService {
   constructor(private readonly prismaService: PrismaService) {}
 
-  getAll() {
-    return this.prismaService.tasks.findMany({
+  async getAll() {
+    return await this.prismaService.tasks.findMany({
       orderBy: {
         position: 'asc',
       },

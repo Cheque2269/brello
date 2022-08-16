@@ -45,8 +45,8 @@ export class ListsResolver {
   }
 
   @Mutation(() => List)
-  createList(@Args('input') input: InputList): Promise<List> {
-    const result = this.listsService.createList(input);
+  async createList(@Args('input') input: InputList): Promise<List> {
+    const result = await this.listsService.createList(input);
     return result;
   }
 }
