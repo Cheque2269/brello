@@ -6,8 +6,65 @@ type Task {
   id: ID!
   title: String
   isCompleted: Boolean!
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  position: Float!
+  listId: String!
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type InputTaskInList {
+  title: String
+}
+
+type List {
+  id: ID!
+  name: String
+  createdAt: DateTime!
+  updatedAt: DateTime!
+  tasks: [Task!]!
+}
+
+type InputTask {
+  title: String
+  listId: String!
+}
+
+input InputTaskInListScheme {
+  title: String
+}
+
+input TaskInput {
+  title: String
+  listId: String!
 }
 
 type Query {
   getAllTask: [Task!]!
+  getList: [List!]!
+}
+
+type Mutation {
+  createTask(input: TaskInput!): InputTask!
+  repositionTask(input: RepositionTaskInputScheme!): Task!
+  isCompletedTask(input: IsCompletedInputScheme!): Task!
+  createList(input: ListInputScheme!): List!
+}
+
+input RepositionTaskInputScheme {
+  id: String!
+  newPosition: Float!
+}
+
+input IsCompletedInputScheme {
+  id: String!
+}
+
+input ListInputScheme {
+  name: String
+  tasks: [InputTaskInListScheme!]!
 }

@@ -1,13 +1,28 @@
-import { InputType, Field } from '@nestjs/graphql';
+import { InputType, Field, ObjectType } from '@nestjs/graphql';
 
-@InputType()
+@ObjectType()
+@InputType('TaskInput')
 export class InputTask {
   @Field((type) => String, { nullable: true })
   title: string;
 
-  @Field((type) => [String], { nullable: true })
-  list?: string[];
+  @Field((type) => String)
+  listId: string;
+}
+
+@ObjectType()
+@InputType('RepositionTaskInputScheme')
+export class RepositionTaskInput {
+  @Field((type) => String)
+  id: string;
 
   @Field((type) => Number)
-  idDone: number;
+  newPosition: number;
+}
+
+@ObjectType()
+@InputType('IsCompletedInputScheme')
+export class IsCompletedInput {
+  @Field((type) => String)
+  id: string;
 }
